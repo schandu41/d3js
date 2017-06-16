@@ -1,0 +1,30 @@
+{
+  "name": "ABC & Company",
+  "children": [
+    {
+      "name": "Manufacturing",
+      "children": [
+        { "name": "Mumbai" }
+      ]
+    },
+    {
+      "name": "Service CEntres",
+      "children": [
+        {
+          "name": "Repairs",
+          "children": [
+            { "name": "Mysuru" },
+            { "name": "Surat" }
+          ]
+        },
+        {
+          "name": "Rework",
+          "children": [
+            { "name": "Chennai" },
+            { "name": "Kolkata" }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta name="description" content="D3byEX 8.3" />
+    <meta charset="utf-8">
+</head>
+
+<body>
+    <script src="http://d3js.org/d3.v3.min.js"></script>
+    <script>
+        var width = 450, height = 450, radius = 50;
+
+var zoomBehavior = d3.behavior.zoom()
+    .scaleExtent([0.1, 10])
+    .on('zoom', onZoom);
+
+    var svg = d3.select('body')
+        .append('svg')
+        .attr({
+            width: width,
+            height: height
+        })
+    .call(zoomBehavior)
+    .append('g');
+
+     function onZoom() {
+        svg.attr('transform', 'translate(' + d3.event.translate + ')' +
+            'scale(' + d3.event.scale + ')');
+    }
+
+        var data = [30, 20, 40];
+
+        var x = 0;
+     var circles =   svg.selectAll('circle')
+            .data(data)
+            .enter()
+            .append('circle')
+            .attr('fill', 'steelblue')
+            .each(function (d, i) {
+                d3.select(this).attr({
+                    cx: x += (d + 5),
+                    cy: 40,
+                    r: d / 2
+                });
+            })
+            .on('mouseenter', function () {
+                d3.select(this).attr('fill', 'red');
+            })
+            .on('mouseout', function () {
+                d3.select(this).attr('fill', 'steelblue');
+            })
+            .on('click', function (d, i) {
+                alert(d + ' ' + i);
+            });
+
+        var dragBehavior = d3.behavior.drag()
+        .on('drag', onDrag)
+        .on('dragstart', function () {
+            d3.event.sourceEvent.stopPropagation();
+        });
+
+    circles.call(dragBehavior);
+
+    function onDrag(d) {
+        var x = d3.event.x,
+            y = d3.event.y;
+        d3.select(this)
+            .attr('transform', function (d) {
+                return 'translate(' + x + ', ' + y + ')';
+            });
+    }
+    </script>
+</body>
+</html>
